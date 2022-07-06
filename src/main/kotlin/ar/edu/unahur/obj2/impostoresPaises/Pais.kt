@@ -7,6 +7,8 @@ class Pais (
     val poblacion: Long,
     val superficie: Double,
     val continente: String,
+    val codigoMoneda: String,
+    val cotizacionDolar: Double,
     var paisesLimitrofes: List<Pais>,
     val bloquesRegionales: List<String>,
     val idiomasOficiales: List<String> ) {
@@ -26,10 +28,18 @@ class Pais (
             return paisesLimitrofes.plus(this).maxByOrNull { it.poblacion }!!
     }
 
+
+
     fun sonLimitrofes(pais:Pais) = this.paisesLimitrofes.any { it.codigoIso3 == pais.codigoIso3 }
 
     fun necesitanTraduccion(pais:Pais) = idiomasOficiales.intersect(pais.idiomasOficiales).isEmpty()
 
     private fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.intersect(pais.bloquesRegionales).isEmpty()
     fun sonPotencialesAliados(pais: Pais) = !this.necesitanTraduccion(pais) && !compartenBloqueRegional(pais)
+
+    fun convieneIrDeCompras(){}
+
+    fun cuantoEquivale(){}
+
+
 }
