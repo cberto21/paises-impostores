@@ -45,11 +45,21 @@ class Pizza{
     var queso : Boolean = false
     var tomate : Int = 0
     var aceituna : Int =0
+    override fun toString(): String {
+        var tieneQueso = "sin queso"
+        if (queso) {tieneQueso = "con queso"}
+        return "Pizza(queso= $tieneQueso, tomate=$tomate, aceituna=$aceituna)"
+    }
 }
 class ManualPizza{
     var queso : Boolean = false
     var tomate : Int = 0
     var aceituna : Int =0
+    override fun toString(): String {
+        var tieneQueso = "sin queso"
+        if (queso) {tieneQueso = "con queso"}
+        return "ManualPizza(queso= $tieneQueso, tomate=$tomate, aceituna=$aceituna)"
+    }
 
 }
 
@@ -61,10 +71,9 @@ class Cocina{
     fun pizzaConDeTodo(){
         builder.cantTomate(4)
         builder.tieneQueso()
-        builder.cantTomate(6)
+        builder.cantAceituna(6)
     }
     fun pizzaRata(){
-        builder.tieneQueso()
         builder.cantTomate(1)
     }
 }
