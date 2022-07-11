@@ -25,10 +25,9 @@ class Pais (
         if (paisesLimitrofes.isEmpty())
             return this
         else
+            /*todo Patrones*/
             return paisesLimitrofes.plus(this).maxByOrNull { it.poblacion }!!
     }
-
-
 
     fun sonLimitrofes(pais:Pais) = this.paisesLimitrofes.any { it.codigoIso3 == pais.codigoIso3 }
 
