@@ -2,16 +2,17 @@ package ar.edu.unahur.obj2.impostoresPaises
 
 
 class Pais (
-    val nombre: String,
+    var nombre: String,
     val codigoIso3: String,
     val poblacion: Long,
     val superficie: Double,
     val continente: String,
     val codigoMoneda: String,
     val cotizacionDolar: Double,
-    var paisesLimitrofes: List<Pais>,
     val bloquesRegionales: List<String>,
     val idiomasOficiales: List<String> ) {
+
+    var paisesLimitrofes :MutableList<Pais> = mutableListOf()
 
     fun esPlurinacional() = idiomasOficiales.size > 2
 
@@ -31,10 +32,11 @@ class Pais (
 
     fun sonLimitrofes(pais:Pais) = this.paisesLimitrofes.any { it.codigoIso3 == pais.codigoIso3 }
 
-    fun necesitanTraduccion(pais:Pais) = idiomasOficiales.intersect(pais.idiomasOficiales).isEmpty()
+    fun necesitanTraduccion(pais:Pais) = idiomasOficiales.intersect(pais.idiomasOficiales.toSet()).isEmpty()
 
-    private fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.intersect(pais.bloquesRegionales).isEmpty()
-    fun sonPotencialesAliados(pais: Pais) = !this.necesitanTraduccion(pais) && !compartenBloqueRegional(pais)
+    fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.intersect(pais.bloquesRegionales.toSet()).isNotEmpty()
+
+    fun sonPotencialesAliados(pais: Pais) = !this.necesitanTraduccion(pais) && compartenBloqueRegional(pais)
 
     fun convieneIrDeCompras(unPais: Pais): Boolean {
         return cotizacionDolar < unPais.cotizacionDolar
@@ -43,6 +45,4 @@ class Pais (
     fun cuantoEquivale(unMonto: Double, unPais: Pais): Double {
         return unMonto / cotizacionDolar * unPais.cotizacionDolar
     }
-
-
 }

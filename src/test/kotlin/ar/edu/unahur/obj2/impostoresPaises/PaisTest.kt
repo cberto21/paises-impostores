@@ -16,12 +16,19 @@ class PaisTest: DescribeSpec({
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países
-    val chile = Pais("Chile", "CHI", 18952038, 756950.0, "América",  "CLP",1012.70, emptyList(), bloqueRegionalMercoSur, idiomasDeRegionAmerica)
-    val uruguay = Pais("Uruguay", "URU", 3461734, 176215.0, "América", "UYU",40.31, emptyList(), bloqueRegionalMercoSur, idiomasDeRegionAmerica )
-    val limitrofesArgentina = listOf(chile, uruguay)
-    val argentina = Pais("Argentina", "ARG", 44938712, 278000000.0,"América","ARS",127.84, limitrofesArgentina, bloqueRegionalMercoSur,idiomasDeRegionAmerica)
-    val japon = Pais("Japon", "JPN", 126264931, 377975.0, "asia","JPY",137.77, emptyList(), bloqueRegionAsia, idiomasEnAsia)
-    val bolivia = Pais("Bolivia","BOL",11510000,1099000000.0,"America","BOB", 6.86,listOf(chile,argentina),bloqueRegionalMercoSur,idiomasDeRegionAmerica )
+    val chile = Pais("Chile", "CHI", 18952038, 756950.0, "América",  "CLP",1012.70, bloqueRegionalMercoSur, idiomasDeRegionAmerica)
+    val uruguay = Pais("Uruguay", "URU", 3461734, 176215.0, "América", "UYU",40.31, bloqueRegionalMercoSur, idiomasDeRegionAmerica )
+    val argentina = Pais("Argentina", "ARG", 44938712, 278000000.0,"América","ARS",127.84,bloqueRegionalMercoSur,idiomasDeRegionAmerica)
+    val japon = Pais("Japon", "JPN", 126264931, 377975.0, "asia","JPY",137.77, bloqueRegionAsia, idiomasEnAsia)
+    val bolivia = Pais("Bolivia","BOL",11510000,1099000000.0,"America","BOB", 6.86,bloqueRegionalMercoSur,idiomasDeRegionAmerica )
+
+    // LIMITROFES
+    chile.paisesLimitrofes.addAll(listOf(argentina,bolivia))
+    uruguay.paisesLimitrofes.addAll(listOf(argentina))
+    argentina.paisesLimitrofes.addAll(listOf(bolivia,uruguay))
+    bolivia.paisesLimitrofes.addAll(listOf(argentina,chile))
+
+
     describe("Testeo de Pais"){
         describe("Requerimiento1: Es Plurinacional"){
             it("Argentina tiene 2 limitrofes es Pluri"){
