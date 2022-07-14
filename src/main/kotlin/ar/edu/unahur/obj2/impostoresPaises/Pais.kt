@@ -36,9 +36,13 @@ class Pais (
     private fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.intersect(pais.bloquesRegionales).isEmpty()
     fun sonPotencialesAliados(pais: Pais) = !this.necesitanTraduccion(pais) && !compartenBloqueRegional(pais)
 
-    fun convieneIrDeCompras(){}
+    fun convieneIrDeCompras(unPais: Pais): Boolean {
+        return cotizacionDolar < unPais.cotizacionDolar
+    }
 
-    fun cuantoEquivale(){}
+    fun cuantoEquivale(unMonto: Double, unPais: Pais): Double {
+        return unMonto / cotizacionDolar * unPais.cotizacionDolar
+    }
 
 
 }
