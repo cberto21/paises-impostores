@@ -15,19 +15,19 @@ class ObservatorioTest: DescribeSpec ({
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países
-    val chile = Pais("Chile", "CHI", 18952038, 756950.0, "América",  "CLP",1012.70, bloqueRegionalMercoSur, idiomasDeRegionAmerica)
-    val uruguay = Pais("Uruguay", "URU", 3461734, 176215.0, "América", "UYU",40.31, bloqueRegionalMercoSur, idiomasDeRegionAmerica )
-    val japon = Pais("Japon", "JPN", 126264931, 377975.0, "asia","JPY",137.77, bloqueRegionAsia, idiomasEnAsia)
-    val argentina = Pais("Argentina", "ARG", 44938712, 278000000.0,"América","ARS",127.84, bloqueRegionalMercoSur,idiomasDeRegionAmerica)
-    val bolivia = Pais("Bolivia","BOL",11510000,109900000.0,"America","BOB", 6.86,bloqueRegionalMercoSur,idiomasDeRegionAmerica )
-    val brasil = Pais("Brasil", "BRA", 105045817, 756215950.0, "América",  "BRL",5.39, bloqueRegionalMercoSur, listOf("portugues"))
+    val chile = PaisComposite("Chile", "CHI", 18952038, 756950.0, "América",  "CLP",1012.70, bloqueRegionalMercoSur, idiomasDeRegionAmerica)
+    val uruguay = PaisComposite("Uruguay", "URU", 3461734, 176215.0, "América", "UYU",40.31, bloqueRegionalMercoSur, idiomasDeRegionAmerica )
+    val japon = PaisInsular("Japon", "JPN", 126264931, 377975.0, "asia","JPY",137.77, bloqueRegionAsia, idiomasEnAsia)
+    val argentina = PaisComposite("Argentina", "ARG", 44938712, 278000000.0,"América","ARS",127.84, bloqueRegionalMercoSur,idiomasDeRegionAmerica)
+    val bolivia = PaisComposite("Bolivia","BOL",11510000,109900000.0,"America","BOB", 6.86,bloqueRegionalMercoSur,idiomasDeRegionAmerica )
+    val brasil = PaisComposite("Brasil", "BRA", 105045817, 756215950.0, "América",  "BRL",5.39, bloqueRegionalMercoSur, listOf("portugues"))
 
     // LIMITROFES
-    chile.paisesLimitrofes.addAll(listOf(argentina,brasil,bolivia))
-    uruguay.paisesLimitrofes.addAll(listOf(argentina,brasil))
-    argentina.paisesLimitrofes.addAll(listOf(bolivia,uruguay,chile,brasil))
-    bolivia.paisesLimitrofes.addAll(listOf(argentina,chile,brasil))
-    brasil.paisesLimitrofes.addAll(listOf(argentina,bolivia,uruguay))
+    chile.agregarListLimitrofe(listOf(argentina,brasil,bolivia))
+    uruguay.agregarListLimitrofe(listOf(argentina,brasil))
+    argentina.agregarListLimitrofe(listOf(bolivia,uruguay,chile,brasil))
+    bolivia.agregarListLimitrofe(listOf(argentina,chile,brasil))
+    brasil.agregarListLimitrofe(listOf(argentina,bolivia,uruguay))
 
     Observatorio.listaPaises = mutableListOf(chile,uruguay,argentina,japon,bolivia, brasil)
 
@@ -55,7 +55,7 @@ class ObservatorioTest: DescribeSpec ({
             Observatorio.sonPotencialesAliados("argentina", "brasil").shouldBeFalse()
         }
     }
-    describe("Requerimiento 4: conviene ir de Compraas"){
+    describe("Requerimiento 4: conviene ir de Compras"){
         it("ir de argentina a bolivia no conviene"){
             Observatorio.convieneIrDeCompras("argentina","bolivia").shouldBeFalse()
         }
