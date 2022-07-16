@@ -17,25 +17,29 @@ class PaisTest: DescribeSpec({
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países
-    val chile = PaisComposite("Chile", "CHI", 18952038, 756950.0, "América",  "CLP",1012.70, bloqueRegionalMercoSur, idiomasDeRegionAmerica)
-    val uruguay = PaisComposite("Uruguay", "URU", 3461734, 176215.0, "América", "UYU",40.31, bloqueRegionalMercoSur, idiomasDeRegionAmerica )
-    val argentina = PaisComposite("Argentina", "ARG", 44938712, 278000000.0,"América","ARS",127.84,bloqueRegionalMercoSur,idiomasDeRegionAmerica)
-    val japon = PaisInsular("Japon", "JPN", 126264931, 377975.0, "asia","JPY",137.77, bloqueRegionAsia, idiomasEnAsia)
-    val bolivia = PaisComposite("Bolivia","BOL",11510000,1099000000.0,"America","BOB", 6.86,bloqueRegionalMercoSur,idiomasDeRegionAmerica )
+    var director = Director()
+    director.setDirector(concreteBuilderPaisComp())
+    val chile = director.crearLatinoAmericano("Chile", "CHI", 18952038, 756950.0, "CLP",1012.70, bloqueRegionalMercoSur)
+    val uruguay = director.crearLatinoAmericano("Uruguay", "URU", 3461734, 176215.0,  "UYU",40.31, bloqueRegionalMercoSur)
+    val japon = director.crearAsiatico("Japon", "JPN", 126264931, 377975.0, "JPY",137.77, bloqueRegionAsia, mutableListOf("japones"))
+    val argentina = director.crearLatinoAmericano("Argentina", "ARG", 44938712, 278000000.0,"ARS",127.84, bloqueRegionalMercoSur)
+    val bolivia =director.crearLatinoAmericano("Bolivia","BOL",11510000,109900000.0,"BOB", 6.86,bloqueRegionalMercoSur)
+    val brasil = director.crearLatinoAmericano("Brasil", "BRA", 105045817, 756215950.0,"BRL",5.39, bloqueRegionalMercoSur, listOf("portugues", "español"))
 
     // LIMITROFES
-    chile.agregarListLimitrofe(listOf(argentina,bolivia))
-    uruguay.agregarListLimitrofe(listOf(argentina))
-    argentina.agregarListLimitrofe(listOf(bolivia,uruguay))
+    chile.agregarListLimitrofe(listOf(argentina,brasil,bolivia))
+    uruguay.agregarListLimitrofe(listOf(argentina,brasil))
+    argentina.agregarListLimitrofe(listOf(bolivia,uruguay,chile,brasil))
     bolivia.agregarListLimitrofe(listOf(argentina,chile))
+    brasil.agregarListLimitrofe(listOf(argentina,bolivia,uruguay))
 
 
     describe("Testeo de Pais"){
         describe("Requerimiento1: Es Plurinacional"){
-            it("Argentina tiene 2 limitrofes es Pluri"){
-                argentina.esPlurinacional().shouldBeTrue()
+            it("brasil tiene mas 2 idiomas "){
+                brasil.esPlurinacional().shouldBeTrue()
             }
-            it("Japon es isla por lo tanto no es pluri"){
+            it("Japon tiene un solo idioma"){
                 japon.esPlurinacional().shouldBeFalse()
             }
         }
@@ -56,8 +60,8 @@ class PaisTest: DescribeSpec({
             }
         }
         describe("Requerimiento 4: vecinoMasPoblado") {
-            it("El vecino más poblado de Argentina entre el mismo pais, Chile y Uruguay es Argentina") {
-                argentina.vecinoMasPoblado().shouldBe(argentina)
+            it("El vecino más poblado de Argentina entre el mismo pais, Chile , Uruguay y Brasil es Brasil") {
+                argentina.vecinoMasPoblado().shouldBe(brasil)
             }
             it("El vecino más poblado para Japón es Japón") {
                 japon.vecinoMasPoblado().shouldBe(japon)

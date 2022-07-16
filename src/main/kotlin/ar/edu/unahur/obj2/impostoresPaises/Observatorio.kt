@@ -2,6 +2,7 @@ package ar.edu.unahur.obj2.impostoresPaises
 
 object Observatorio {
     var listaPaises : MutableList<Pais> = mutableListOf()
+    var continente: Map<String, List<Pais>> = mapOf()
 
     fun buscarPaisPorNombre(nombrePais: String): Pais {
         return listaPaises.filter { it.nombre == nombrePais.capitalize() }.first()
@@ -35,6 +36,28 @@ object Observatorio {
         val origen = buscarPaisPorNombre(paisOrigen)
         val destino = buscarPaisPorNombre(paisDestino)
         return origen.cuantoEquivale(unMonto, destino)
+    }
+    fun cincoISOconMayorDensidad(listaObtenida : MutableList<String>): List<String>{
+        var lista : MutableList<Pais> = mutableListOf()
+        listaPaises.sortedByDescending { it.densidadPoblacional() }
+        for (i in listaPaises){
+            if(i.densidadPoblacional() > lista.last().densidadPoblacional() && lista.size <=5){
+                lista.add(i)
+            }
+        }
+        return lista.map{it.codigoIso3}
+    }
+    private fun cantidadPaisesPlurinacionales(continente: List<Pais>): Int {
+        return continente.count { it.esPlurinacional() }
+    }
+    fun continenteConPaisesPlurinacionles(): String {
+        return continente.maxByOrNull { cantidadPaisesPlurinacionales( it.value ) }!!.key
+    }
+    private fun paisesIsla(): List<Pais> {
+        return listaPaises.filter{ it.esUnaIsla() }
+    }
+    fun promedioDensidadPoblacionalPaisesIsla(): Double {
+        return this.paisesIsla().sumByDouble { it.densidadPoblacional() } / this.paisesIsla().size
     }
 
 }

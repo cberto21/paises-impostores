@@ -2,15 +2,17 @@ package ar.edu.unahur.obj2.impostoresPaises
 
 interface Pais{
     var nombre: String
-    val codigoIso3: String
-    val poblacion: Long
-    val superficie: Double
-    val continente: String
-    val codigoMoneda: String
-    val cotizacionDolar: Double
-    val bloquesRegionales: List<String>
-    val idiomasOficiales: List<String>
+    var codigoIso3: String
+    var poblacion: Long
+    var superficie: Double
+    var continente: String
+    var codigoMoneda: String
+    var cotizacionDolar: Double
+    var bloquesRegionales: List<String>
+    var idiomasOficiales: List<String>
     var paisesLimitrofes : MutableList<Pais>
+    fun agregarListLimitrofe(paises: List<Pais>)
+    fun sacarPais(unPais: Pais)
     fun esPlurinacional(): Boolean
     fun esUnaIsla(): Boolean
     fun densidadPoblacional(): Double
@@ -22,27 +24,28 @@ interface Pais{
     fun convieneIrDeCompras(unPais: Pais): Boolean
     fun cuantoEquivale(unMonto: Double, unPais: Pais): Double
 }
-class PaisComposite(
-    override var nombre: String,
-    override val codigoIso3: String,
-    override val poblacion: Long,
-    override val superficie: Double,
-    override val continente: String,
-    override val codigoMoneda: String,
-    override val cotizacionDolar: Double,
-    override val bloquesRegionales: List<String>,
-    override val idiomasOficiales: List<String> ) : Pais {
 
+class PaisComposite : Pais {
+
+    override var nombre: String = ""
+    override var codigoIso3: String = ""
+    override var poblacion: Long = 0
+    override var superficie: Double = 0.0
+    override var continente: String = ""
+    override var codigoMoneda: String = ""
+    override var cotizacionDolar: Double = 0.0
+    override var bloquesRegionales: List<String> = mutableListOf()
+    override var idiomasOficiales: List<String> = mutableListOf()
     override var paisesLimitrofes :MutableList<Pais> = mutableListOf()
 
-    fun agregarListLimitrofe(paises: List<PaisComposite>){
+    override fun agregarListLimitrofe(paises: List<Pais>){
         paisesLimitrofes.addAll(paises)
     }
-    fun sacarPais(unPais: Pais){
+    override fun sacarPais(unPais: Pais){
         paisesLimitrofes.remove(unPais)
     }
 
-    override fun esPlurinacional() = idiomasOficiales.size > 2
+    override fun esPlurinacional() = idiomasOficiales.size >= 2
 
     override fun esUnaIsla() = paisesLimitrofes.isEmpty()
 
@@ -71,22 +74,23 @@ class PaisComposite(
     }
 }
 
-class PaisInsular(
-    override var nombre: String,
-    override val codigoIso3: String,
-    override val poblacion: Long,
-    override val superficie: Double,
-    override val continente: String,
-    override val codigoMoneda: String,
-    override val cotizacionDolar: Double,
-    override val bloquesRegionales: List<String>,
-    override val idiomasOficiales: List<String> ) : Pais {
+class PaisInsular: Pais{
 
+    override var nombre: String = ""
+    override var codigoIso3: String = ""
+    override var poblacion: Long = 0
+    override var superficie: Double = 0.0
+    override var continente: String = ""
+    override var codigoMoneda: String = ""
+    override var cotizacionDolar: Double = 0.0
+    override var bloquesRegionales: List<String> = mutableListOf()
+    override var idiomasOficiales: List<String> = mutableListOf()
     override var paisesLimitrofes: MutableList<Pais>
         get() = mutableListOf()
         set(value) {}
-
-    override fun esPlurinacional() = idiomasOficiales.size > 2
+    override fun agregarListLimitrofe(paises: List<Pais>){}
+    override fun sacarPais(unPais: Pais){}
+    override fun esPlurinacional() = idiomasOficiales.size >= 2
 
     override fun esUnaIsla() = true
 

@@ -15,12 +15,14 @@ class ObservatorioTest: DescribeSpec ({
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países
-    val chile = PaisComposite("Chile", "CHI", 18952038, 756950.0, "América",  "CLP",1012.70, bloqueRegionalMercoSur, idiomasDeRegionAmerica)
-    val uruguay = PaisComposite("Uruguay", "URU", 3461734, 176215.0, "América", "UYU",40.31, bloqueRegionalMercoSur, idiomasDeRegionAmerica )
-    val japon = PaisInsular("Japon", "JPN", 126264931, 377975.0, "asia","JPY",137.77, bloqueRegionAsia, idiomasEnAsia)
-    val argentina = PaisComposite("Argentina", "ARG", 44938712, 278000000.0,"América","ARS",127.84, bloqueRegionalMercoSur,idiomasDeRegionAmerica)
-    val bolivia = PaisComposite("Bolivia","BOL",11510000,109900000.0,"America","BOB", 6.86,bloqueRegionalMercoSur,idiomasDeRegionAmerica )
-    val brasil = PaisComposite("Brasil", "BRA", 105045817, 756215950.0, "América",  "BRL",5.39, bloqueRegionalMercoSur, listOf("portugues"))
+    var director = Director()
+    director.setDirector(concreteBuilderPaisComp())
+    val chile = director.crearLatinoAmericano("Chile", "CHI", 18952038, 756950.0, "CLP",1012.70, bloqueRegionalMercoSur)
+    val uruguay = director.crearLatinoAmericano("Uruguay", "URU", 3461734, 176215.0,  "UYU",40.31, bloqueRegionalMercoSur)
+    val japon = director.crearAsiatico("Japon", "JPN", 126264931, 377975.0, "JPY",137.77, bloqueRegionAsia, mutableListOf("japones"))
+    val argentina = director.crearLatinoAmericano("Argentina", "ARG", 44938712, 278000000.0,"ARS",127.84, bloqueRegionalMercoSur)
+    val bolivia =director.crearLatinoAmericano("Bolivia","BOL",11510000,109900000.0,"BOB", 6.86,bloqueRegionalMercoSur)
+    val brasil = director.crearLatinoAmericano("Brasil", "BRA", 105045817, 756215950.0,"BRL",5.39, bloqueRegionalMercoSur, listOf("portugues"))
 
     // LIMITROFES
     chile.agregarListLimitrofe(listOf(argentina,brasil,bolivia))
