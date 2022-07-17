@@ -9,12 +9,11 @@ object Observatorio {
     }
     fun agregarContinente(nombre: String,paises: MutableList<Pais>){
         if(continente.containsKey(nombre)){
-            continente["America"]!!.addAll(paises)
+            continente[nombre]!!.addAll(paises)
         }else{
             continente[nombre] = paises
         }
     }
-
 
     fun sonLimitrofes(nombrePais1: String,nombrePais2: String): Boolean {
         val pais1 = buscarPaisPorNombre(nombrePais1)

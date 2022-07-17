@@ -27,7 +27,7 @@ interface Pais{
 }
 
 class PaisComposite : Pais {
-    // PaisComposite: puede albergar conjunto de Paises
+    // PaisComposite: puede albergar conjunto de Paises Limitrofes
     override var nombre: String = ""
     override var codigoIso3: String = ""
     override var poblacion: Long = 0
@@ -54,12 +54,12 @@ class PaisComposite : Pais {
     }
 
     override fun vecinoMasPoblado() : Pais {
-            return paisesLimitrofes.plus(this).maxByOrNull { it.poblacion }!!
+            return paisesLimitrofes.plus(this).maxByOrNull { it.poblacion }!! //lista de limitrofes añade self y sacar el mas poblado
     }
 
     override fun sonLimitrofes(pais:Pais) = this.paisesLimitrofes.any { it.codigoIso3 == pais.codigoIso3 }
 
-    override fun necesitanTraduccion(pais:Pais) = idiomasOficiales.intersect(pais.idiomasOficiales.toSet()).isEmpty()
+    override fun necesitanTraduccion(pais:Pais) = idiomasOficiales.intersect(pais.idiomasOficiales.toSet()).isEmpty() // necesito traduccion si no encuentra ningun idioma, osea una set vacio
 
     override fun compartenBloqueRegional(pais: Pais) = bloquesRegionales.intersect(pais.bloquesRegionales.toSet()).isNotEmpty()
 
@@ -69,7 +69,7 @@ class PaisComposite : Pais {
         return cotizacionDolar < unPais.cotizacionDolar
     }
 
-    override fun cuantoEquivale(unMonto: Double, unPais: Pais): Double {
+    override fun cuantoEquivale(unMonto: Double, unPais: Pais): Double { // cuanta moneda de unPais me darian, con la moneda de self y unMonto
         return unMonto / cotizacionDolar * unPais.cotizacionDolar
     }
 }
@@ -85,7 +85,7 @@ class PaisInsular: Pais{
     override var cotizacionDolar: Double = 0.0
     override var bloquesRegionales: List<String> = mutableListOf()
     override var idiomasOficiales: List<String> = mutableListOf()
-    override var paisesLimitrofes: MutableList<Pais>
+    override var paisesLimitrofes: MutableList<Pais> // no deja setear limitrofes en pais insular
         get() = mutableListOf()
         set(value) {}
 
