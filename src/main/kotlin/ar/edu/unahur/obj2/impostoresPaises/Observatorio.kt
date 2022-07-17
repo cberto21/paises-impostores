@@ -37,16 +37,23 @@ object Observatorio {
         val destino = buscarPaisPorNombre(paisDestino)
         return origen.cuantoEquivale(unMonto, destino)
     }
-    fun cincoISOconMayorDensidad(listaObtenida : MutableList<String>): List<String>{
+    /*fun cincoISOconMayorDensidad(): List<String>{
         var lista : MutableList<Pais> = mutableListOf()
+        var indice : Int = 0
         listaPaises.sortedByDescending { it.densidadPoblacional() }
-        for (i in listaPaises){
-            if(i.densidadPoblacional() > lista.last().densidadPoblacional() && lista.size <=5){
-                lista.add(i)
-            }
+        while (indice <= 5){
+           lista.add(listaPaises[indice])
+           indice += 1
         }
         return lista.map{it.codigoIso3}
+    }*/
+    fun cincoISOconMayorDensidad(): List<String>{
+        val listaAux: MutableList<Pais> = mutableListOf()
+        listaAux.addAll(listaPaises)
+        listaAux.sortedByDescending { it.densidadPoblacional() }.subList(0,4)
+        return listaAux.map{it.codigoIso3}
     }
+
     private fun cantidadPaisesPlurinacionales(continente: List<Pais>): Int {
         return continente.count { it.esPlurinacional() }
     }

@@ -17,7 +17,7 @@ class PaisTest: DescribeSpec({
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países
-    var director = Director()
+    val director = Director()
     director.setDirector(concreteBuilderPaisComp())
     val chile = director.crearLatinoAmericano("Chile", "CHI", 18952038, 756950.0, "CLP",1012.70, bloqueRegionalMercoSur)
     val uruguay = director.crearLatinoAmericano("Uruguay", "URU", 3461734, 176215.0,  "UYU",40.31, bloqueRegionalMercoSur)
@@ -36,7 +36,7 @@ class PaisTest: DescribeSpec({
 
     describe("Testeo de Pais"){
         describe("Requerimiento1: Es Plurinacional"){
-            it("brasil tiene mas 2 idiomas "){
+            it("brasil tiene mas 1 idiomas "){
                 brasil.esPlurinacional().shouldBeTrue()
             }
             it("Japon tiene un solo idioma"){
