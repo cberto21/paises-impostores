@@ -1,6 +1,7 @@
 package ar.edu.unahur.obj2.impostoresPaises
 
 interface Pais{
+    //Interfaz en comun para instanciar Paises
     var nombre: String
     var codigoIso3: String
     var poblacion: Long
@@ -26,7 +27,7 @@ interface Pais{
 }
 
 class PaisComposite : Pais {
-
+    // PaisComposite: puede albergar conjunto de Paises
     override var nombre: String = ""
     override var codigoIso3: String = ""
     override var poblacion: Long = 0

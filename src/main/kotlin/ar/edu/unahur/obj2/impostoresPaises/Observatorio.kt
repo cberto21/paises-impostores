@@ -4,9 +4,10 @@ object Observatorio {
     var listaPaises : MutableList<Pais> = mutableListOf()
     var continente: Map<String, List<Pais>> = mapOf()
 
-    fun buscarPaisPorNombre(nombrePais: String): Pais {
+    private fun buscarPaisPorNombre(nombrePais: String): Pais {
         return listaPaises.filter { it.nombre == nombrePais.capitalize() }.first()
     }
+
 
     fun sonLimitrofes(nombrePais1: String,nombrePais2: String): Boolean {
         val pais1 = buscarPaisPorNombre(nombrePais1)
@@ -37,21 +38,12 @@ object Observatorio {
         val destino = buscarPaisPorNombre(paisDestino)
         return origen.cuantoEquivale(unMonto, destino)
     }
-    /*fun cincoISOconMayorDensidad(): List<String>{
-        var lista : MutableList<Pais> = mutableListOf()
-        var indice : Int = 0
-        listaPaises.sortedByDescending { it.densidadPoblacional() }
-        while (indice <= 5){
-           lista.add(listaPaises[indice])
-           indice += 1
-        }
-        return lista.map{it.codigoIso3}
-    }*/
+
     fun cincoISOconMayorDensidad(): List<String>{
         val listaAux: MutableList<Pais> = mutableListOf()
         listaAux.addAll(listaPaises)
-        listaAux.sortedByDescending { it.densidadPoblacional() }.subList(0,4)
-        return listaAux.map{it.codigoIso3}
+        listaAux.sortByDescending{ it.densidadPoblacional() }
+        return listaAux.subList(0,5).map{it.codigoIso3}
     }
 
     private fun cantidadPaisesPlurinacionales(continente: List<Pais>): Int {
@@ -60,11 +52,11 @@ object Observatorio {
     fun continenteConPaisesPlurinacionles(): String {
         return continente.maxByOrNull { cantidadPaisesPlurinacionales( it.value ) }!!.key
     }
-    private fun paisesIsla(): List<Pais> {
+    fun paisesIsla(): List<Pais> {
         return listaPaises.filter{ it.esUnaIsla() }
     }
     fun promedioDensidadPoblacionalPaisesIsla(): Double {
-        return this.paisesIsla().sumByDouble { it.densidadPoblacional() } / this.paisesIsla().size
+        return (this.paisesIsla().sumByDouble { it.densidadPoblacional() }) / this.paisesIsla().size
     }
 
 }

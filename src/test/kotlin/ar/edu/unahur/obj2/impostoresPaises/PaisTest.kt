@@ -21,10 +21,11 @@ class PaisTest: DescribeSpec({
     director.setDirector(concreteBuilderPaisComp())
     val chile = director.crearLatinoAmericano("Chile", "CHI", 18952038, 756950.0, "CLP",1012.70, bloqueRegionalMercoSur)
     val uruguay = director.crearLatinoAmericano("Uruguay", "URU", 3461734, 176215.0,  "UYU",40.31, bloqueRegionalMercoSur)
-    val japon = director.crearAsiatico("Japon", "JPN", 126264931, 377975.0, "JPY",137.77, bloqueRegionAsia, mutableListOf("japones"))
     val argentina = director.crearLatinoAmericano("Argentina", "ARG", 44938712, 278000000.0,"ARS",127.84, bloqueRegionalMercoSur)
     val bolivia =director.crearLatinoAmericano("Bolivia","BOL",11510000,109900000.0,"BOB", 6.86,bloqueRegionalMercoSur)
     val brasil = director.crearLatinoAmericano("Brasil", "BRA", 105045817, 756215950.0,"BRL",5.39, bloqueRegionalMercoSur, listOf("portugues", "español"))
+    director.setDirector(concreteBuilderPaisInsu())
+    val japon = director.crearAsiatico("Japon", "JPN", 126264931, 377975.0, "JPY",137.77, bloqueRegionAsia, mutableListOf("japones"))
 
     // LIMITROFES
     chile.agregarListLimitrofe(listOf(argentina,brasil,bolivia))
