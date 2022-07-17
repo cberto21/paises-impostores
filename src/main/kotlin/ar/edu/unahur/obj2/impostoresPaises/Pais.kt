@@ -38,7 +38,6 @@ class PaisComposite : Pais {
     override var bloquesRegionales: List<String> = mutableListOf()
     override var idiomasOficiales: List<String> = mutableListOf()
     override var paisesLimitrofes :MutableList<Pais> = mutableListOf()
-
     override fun agregarListLimitrofe(paises: List<Pais>){
         paisesLimitrofes.addAll(paises)
     }
@@ -89,6 +88,7 @@ class PaisInsular: Pais{
     override var paisesLimitrofes: MutableList<Pais>
         get() = mutableListOf()
         set(value) {}
+
     override fun agregarListLimitrofe(paises: List<Pais>){}
     override fun sacarPais(unPais: Pais){}
     override fun esPlurinacional() = idiomasOficiales.size >= 2

@@ -12,8 +12,6 @@ class PaisTest: DescribeSpec({
 
     // Listas usadas por los países
     val bloqueRegionalMercoSur = listOf("Mercosur")
-    val idiomasDeRegionAmerica = listOf("español", "inglés", "portugués")
-    val idiomasEnAsia = listOf("japonés")
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países

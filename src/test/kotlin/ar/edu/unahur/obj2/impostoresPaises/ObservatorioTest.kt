@@ -11,12 +11,10 @@ class ObservatorioTest: DescribeSpec ({
     //
     // Listas usadas por los países
     val bloqueRegionalMercoSur = listOf("Mercosur")
-    val idiomasDeRegionAmerica = listOf("español", "inglés", "portugués")
-    val idiomasEnAsia = listOf("japonés")
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países
-    var director = Director()
+    val director = Director()
     director.setDirector(concreteBuilderPaisComp())
     val chile = director.crearLatinoAmericano("Chile", "CHI", 18952038, 756950.0, "CLP",1012.70, bloqueRegionalMercoSur)
     val uruguay = director.crearLatinoAmericano("Uruguay", "URU", 3461734, 176215.0,  "UYU",40.31, bloqueRegionalMercoSur)
@@ -35,7 +33,8 @@ class ObservatorioTest: DescribeSpec ({
     brasil.agregarListLimitrofe(listOf(argentina,bolivia,uruguay))
 
     Observatorio.listaPaises = mutableListOf(chile,uruguay,argentina,japon,bolivia, brasil,hongKong)
-    Observatorio.continente = mapOf(Pair("America", listOf<Pais>(chile, uruguay,argentina,bolivia,brasil)),Pair("Asiatico", listOf<Pais>(japon, hongKong)))
+    Observatorio.agregarContinente("America", mutableListOf(argentina,chile,bolivia,brasil, uruguay))
+    Observatorio.agregarContinente("Asia", mutableListOf(japon, hongKong))
 
     describe("Requerimiento 1: son Limitrofes"){
         it("chile es limitrofe de argentina"){
@@ -87,10 +86,10 @@ class ObservatorioTest: DescribeSpec ({
     }
     describe("Requerimiento 7: continen con mas paises Plurinacionales"){
         it("America es el mas plurinacional"){
-            Observatorio.continenteConPaisesPlurinacionles().shouldBe("America")
+            Observatorio.continenteConMasPaisesPlurinacionles().shouldBe("America")
         }
         it("Japon directamente no es el mas plurinacional"){
-            Observatorio.continenteConPaisesPlurinacionles().shouldNotBe("Asiatico")
+            Observatorio.continenteConMasPaisesPlurinacionles().shouldNotBe("Asia")
         }
     }
     describe("Test densidad: de cada pais"){

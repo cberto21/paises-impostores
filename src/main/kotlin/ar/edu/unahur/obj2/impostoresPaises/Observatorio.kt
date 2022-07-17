@@ -2,10 +2,17 @@ package ar.edu.unahur.obj2.impostoresPaises
 
 object Observatorio {
     var listaPaises : MutableList<Pais> = mutableListOf()
-    var continente: Map<String, List<Pais>> = mapOf()
+    var continente: MutableMap<String, MutableList<Pais>> = mutableMapOf()
 
     private fun buscarPaisPorNombre(nombrePais: String): Pais {
         return listaPaises.filter { it.nombre == nombrePais.capitalize() }.first()
+    }
+    fun agregarContinente(nombre: String,paises: MutableList<Pais>){
+        if(continente.containsKey(nombre)){
+            continente["America"]!!.addAll(paises)
+        }else{
+            continente[nombre] = paises
+        }
     }
 
 
@@ -49,7 +56,7 @@ object Observatorio {
     private fun cantidadPaisesPlurinacionales(continente: List<Pais>): Int {
         return continente.count { it.esPlurinacional() }
     }
-    fun continenteConPaisesPlurinacionles(): String {
+    fun continenteConMasPaisesPlurinacionles(): String {
         return continente.maxByOrNull { cantidadPaisesPlurinacionales( it.value ) }!!.key
     }
     fun paisesIsla(): List<Pais> {

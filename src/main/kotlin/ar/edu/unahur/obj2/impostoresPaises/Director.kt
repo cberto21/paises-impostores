@@ -34,7 +34,7 @@ class Director {
         builder.setCodigoISO3(iso)
         builder.setPoblacion(poblacion)
         builder.setSuperficie(superficie)
-        builder.setContinente("Asiatico")
+        builder.setContinente("Asia")
         builder.setCodigoMoneda(moneda)
         builder.setCotizacionDolar(dolar)
         builder.setBloqueRegional(regional)
