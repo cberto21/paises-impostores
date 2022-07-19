@@ -14,16 +14,16 @@ class ObservatorioTest: DescribeSpec ({
     val bloqueRegionAsia = listOf("RCEP")
 
     // Países
-    val director = Director()
-    director.setDirector(concreteBuilderPaisComp())
-    val chile = director.crearLatinoAmericano("Chile", "CHI", 18952038, 756950.0, "CLP",1012.70, bloqueRegionalMercoSur)
-    val uruguay = director.crearLatinoAmericano("Uruguay", "URU", 3461734, 176215.0,  "UYU",40.31, bloqueRegionalMercoSur)
-    val argentina = director.crearLatinoAmericano("Argentina", "ARG", 44938712, 278000000.0,"ARS",127.84, bloqueRegionalMercoSur)
-    val bolivia =director.crearLatinoAmericano("Bolivia","BOL",11510000,109900000.0,"BOB", 6.86,bloqueRegionalMercoSur)
-    val brasil = director.crearLatinoAmericano("Brasil", "BRA", 105045817, 756215950.0,"BRL",5.39, bloqueRegionalMercoSur, listOf("portugues"))
-    director.setDirector(concreteBuilderPaisInsu())
-    val hongKong = director.crearAsiatico("Hong Kong", "HKD", 7482000, 1114000.0, "HK",137.77, bloqueRegionAsia, mutableListOf("japones"))
-    val japon = director.crearAsiatico("Japon", "JPN", 126264931, 377975.0, "JPY",137.77, bloqueRegionAsia, mutableListOf("japones"))
+    val terraformador = Terraformer()
+    terraformador.setFormer(concreteBuilderPaisComp())
+    val chile = terraformador.crearLatinoAmericano("Chile", "CHI", 18952038, 756950.0, "CLP",1012.70, bloqueRegionalMercoSur)
+    val uruguay = terraformador.crearLatinoAmericano("Uruguay", "URU", 3461734, 176215.0,  "UYU",40.31, bloqueRegionalMercoSur)
+    val argentina = terraformador.crearLatinoAmericano("Argentina", "ARG", 44938712, 278000000.0,"ARS",127.84, bloqueRegionalMercoSur)
+    val bolivia =terraformador.crearLatinoAmericano("Bolivia","BOL",11510000,109900000.0,"BOB", 6.86,bloqueRegionalMercoSur)
+    val brasil = terraformador.crearLatinoAmericano("Brasil", "BRA", 105045817, 756215950.0,"BRL",5.39, bloqueRegionalMercoSur, listOf("portugues"))
+    terraformador.setFormer(concreteBuilderPaisInsu())
+    val hongKong = terraformador.crearAsiatico("Hong Kong", "HKD", 7482000, 1114000.0, "HK",137.77, bloqueRegionAsia, mutableListOf("japones"))
+    val japon = terraformador.crearAsiatico("Japon", "JPN", 126264931, 377975.0, "JPY",137.77, bloqueRegionAsia, mutableListOf("japones"))
 
     // LIMITROFES
     chile.agregarListLimitrofe(listOf(argentina,brasil,bolivia))

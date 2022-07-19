@@ -1,8 +1,8 @@
 package ar.edu.unahur.obj2.impostoresPaises
 
-class Director {
+class Terraformer {
     lateinit var builder : builderPais
-    fun setDirector(builder: builderPais){
+    fun setFormer(builder: builderPais){
         this.builder = builder
     }
     fun crearNorteAmericano(nombre: String,iso : String, poblacion: Long, superficie: Double, moneda: String,dolar : Double, regional: List<String>, idioma: List<String> = listOf("Ingles")): Pais {

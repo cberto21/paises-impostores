@@ -5,7 +5,7 @@ object Observatorio {
     var continente: MutableMap<String, MutableList<Pais>> = mutableMapOf()
 
     private fun buscarPaisPorNombre(nombrePais: String): Pais {
-        return listaPaises.filter { it.nombre == nombrePais.capitalize() }.first()
+        return listaPaises.first { it.nombre == nombrePais.capitalize() }
     }
     fun agregarContinente(nombre: String,paises: MutableList<Pais>){
         if(continente.containsKey(nombre)){
